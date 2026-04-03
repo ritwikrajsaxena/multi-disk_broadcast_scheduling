@@ -828,7 +828,7 @@ def main():
                 
                 st.plotly_chart(fig_cache, use_container_width=True)
             
-            # ==================== DOWNLOAD OPTIONS ====================
+# ==================== DOWNLOAD OPTIONS ====================
             st.subheader("📥 Export Results")
             
             col1, col2, col3 = st.columns(3)
@@ -853,6 +853,9 @@ def main():
                 )
             
             with col3:
+                # Create broadcast sequence (always define it for the report)
+                sequence_items = schedule_df['Item'].tolist()
+                
                 # Create summary report
                 report = f"""
 BROADCAST DISK SCHEDULING REPORT
@@ -885,10 +888,6 @@ Broadcast Sequence:
                     file_name="broadcast_report.txt",
                     mime="text/plain"
                 )
-    
-    else:
-        st.warning("⚠️ Please add at least one disk with items to generate a schedule.")
-    
     # ==================== HELP SECTION ====================
     with st.expander("ℹ️ How It Works"):
         st.markdown("""
